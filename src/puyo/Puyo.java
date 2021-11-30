@@ -1,11 +1,15 @@
 package puyo;
 
+import java.awt.*;
+
 class Puyo {
 
-    private int color;
-    private int x;
-    private int y;
-    private boolean isLanded = false;
+    private int color = 0;
+    private int x = 0;
+    private int y = 0;
+    private boolean landStatus = false;
+    private int drawX;
+    private int drawY;
 
     // Color 0:Blue - 1:Green - 2:Gray - 3:Purple - 4:Red - 5:Yellow
     Puyo(int color, int x, int y) {
@@ -14,11 +18,16 @@ class Puyo {
         this.y = y;
     }
 
+    Puyo(int drawX, int drawY){
+        this.drawX = drawX;
+        this.drawY = drawY;
+    }
+
     Puyo(int color, int x, int y, boolean landingStatus) {
         this.color = color;
         this.x = x;
         this.y = y;
-        this.isLanded = landingStatus;
+        this.landStatus = landingStatus;
     }
 
     public String getColorAsString() {
@@ -54,6 +63,34 @@ class Puyo {
     }
 
     public boolean getLandingStatus(){
-        return isLanded;
+        return landStatus;
+    }
+
+    public boolean isLandStatus() {
+        return landStatus;
+    }
+
+    public void setLandStatus(boolean landStatus) {
+        this.landStatus = landStatus;
+    }
+
+    public int getDrawX() {
+        return drawX;
+    }
+
+    public void setDrawX(int drawX) {
+        this.drawX = drawX;
+    }
+
+    public int getDrawY() {
+        return drawY;
+    }
+
+    public void setDrawY(int drawY) {
+        this.drawY = drawY;
+    }
+
+    public void drawComponent(Graphics2D g){
+        g.drawOval(drawX, drawY, 12,12);
     }
 }

@@ -32,12 +32,16 @@ public class ConsoleTetris {
         display();
     }
 
+    public void init(){
+        fillWithVoid();
+    }
+
     public void display() {
 
-        for (int i = 0; i < grid.length; i++) {
+        for (Puyo[] puyos : grid) {
             for (int j = 0; j < grid[0].length; j++) {
                 System.out.print("[");
-                System.out.print(grid[i][j].getColorAsString());
+                System.out.print(puyos[j].getColorAsString());
                 System.out.print("]");
             }
             System.out.println("");
@@ -56,8 +60,8 @@ public class ConsoleTetris {
     public void deleteMarked() {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                for (int j2 = 0; j2 < markedForDelete.size(); j2++) {
-                    if (markedForDelete.get(j2) == grid[i][j]) {
+                for (Puyo puyo : markedForDelete) {
+                    if (puyo == grid[i][j]) {
                         grid[i][j] = new Puyo(5, grid[i][j].getX(), grid[i][j].getY());
                     }
                 }
@@ -131,9 +135,9 @@ public class ConsoleTetris {
 
     public void checkPuyo() {
 
-        for (int i = 0; i < grid.length; i++) {
+        for (Puyo[] puyos : grid) {
             for (int j = 0; j < grid[0].length; j++) {
-                checkOnePuyo(grid[i][j]);
+                checkOnePuyo(puyos[j]);
                 if (markedForDelete.size() > 3) {
                     deleteMarked();
                 } else {
