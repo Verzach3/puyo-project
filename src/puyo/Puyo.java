@@ -55,11 +55,11 @@ class Puyo {
     }
 
     public int getX(){
-        return x;
+        return x - 1;
     }
 
     public int getY(){
-        return y;
+        return y - 1;
     }
 
     public boolean getLandingStatus(){
@@ -91,6 +91,6 @@ class Puyo {
     }
 
     public void drawComponent(Graphics2D g){
-        g.drawOval(drawX, drawY, 12,12);
+        g.fillOval(drawX, drawY, 40, 40);
     }
 }
