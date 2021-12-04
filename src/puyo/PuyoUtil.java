@@ -22,20 +22,23 @@ public class PuyoUtil {
         createPuyoOnGrid(0, 3, 12);
         createPuyoOnGrid(0, 4, 12);
         createPuyoOnGrid(0, 4, 11);
-        grid[11][4] = new Puyo(0, 4, 11, true);
-        grid[5][4] = new Puyo(0, 4, 5, true);
-        grid[5][3] = new Puyo(0, 3, 5, true);
-        grid[11][0] = new Puyo(2, 1, 11, true);
-        grid[11][1] = new Puyo(2, 2, 11, true);
-        grid[11][2] = new Puyo(2, 3, 11, true);
-        grid[11][3] = new Puyo(2, 4, 11, true);
-        grid[6][4] = new Puyo(0, 4, 6, true);
-        grid[2][4] = new Puyo(0, 4, 2, true);
-        grid[2][3] = new Puyo(0, 3, 2, true);
-        grid[6][3] = new Puyo(0, 3, 6, true);
+        createPuyoOnGrid(0, 4, 5);
+        createPuyoOnGrid(0, 3, 5);
+        //
+        createPuyoOnGrid(2, 0, 11);
+        createPuyoOnGrid(2, 1, 11);
+        createPuyoOnGrid(2, 2, 11);
+        createPuyoOnGrid(2, 3, 11);
+        //
+        createPuyoOnGrid(0, 4, 6);
+        createPuyoOnGrid(0, 4, 2);
+        createPuyoOnGrid(0, 3, 2);
+        createPuyoOnGrid(0, 3, 6);
 
         display();
         System.out.println(markedForDelete.size());
+        //checkOnePuyo(grid[5][3]);
+        //checkOnePuyo(grid[5][3]);
         checkPuyo();
         System.out.println(markedForDelete.size());
 
@@ -47,12 +50,12 @@ public class PuyoUtil {
     }
 
     public void display() {
-        int numY = 1;
+        int numY = 0;
         int numX = 0;
         for (Puyo[] puyos : grid) {
             for (int i = 0; i < 6; i++) {
                 if (numX < 6){
-                    System.out.print("  "+(numX + 1));
+                    System.out.print("  "+numX);
                     numX++;
                 }
                 if (numX == 6){
@@ -100,8 +103,9 @@ public class PuyoUtil {
 
         switch (direction) {
             case UP:
+                System.out.println("Checked UP");
                 if (cube.getY() > 0) {
-                    cubeForCheck = grid[cube.getY() - 1][cube.getX()];
+                     cubeForCheck = grid[cube.getY() - 1][cube.getX()];
                     if (compareCubes(cube, cubeForCheck) && cube.getColorAsString().equals("-")) {
                         System.out.println("Up True on: X:" + cube.getX() + " And Y:" + cube.getY());
                         checkOnePuyo(cubeForCheck);
@@ -110,11 +114,12 @@ public class PuyoUtil {
                         return false;
                     }
                 }
-
                 break;
             case DOWN:
+                System.out.println("Checked DOWN");
                 if (cube.getY() < grid.length - 1) {
                     cubeForCheck = grid[cube.getY() + 1][cube.getX()];
+                    System.out.println("Checked Y:" + (cube.getY() + 1) + " X:" + cube.getX());
                     if (compareCubes(cube, cubeForCheck) && cube.getColorAsString().equals("-")) {
                         System.out.println("Down True on: X:" + cube.getX() + " And Y:" + cube.getY());
                         checkOnePuyo(cubeForCheck);
@@ -125,6 +130,7 @@ public class PuyoUtil {
                 }
                 break;
             case LEFT:
+                System.out.println("Checked LEFT");
                 if (cube.getX() > 0) {
                     cubeForCheck = grid[cube.getY()][cube.getX() - 1];
                     if (compareCubes(cube, cubeForCheck) && cube.getColorAsString().equals("-")) {
@@ -137,6 +143,7 @@ public class PuyoUtil {
                 }
                 break;
             case RIGHT:
+                System.out.println("Checked RIGHT");
                 if (cube.getX() < grid[0].length - 1) {
                     cubeForCheck = grid[cube.getY()][cube.getX() + 1];
                     if (compareCubes(cube, cubeForCheck) && !cube.getColorAsString().equals("-")) {
@@ -154,7 +161,7 @@ public class PuyoUtil {
     }
 
     public boolean compareCubes(Puyo cube1, Puyo cube2) {
-        return cube1.getColorAsString().equals(cube2.getColorAsString());
+        return cube1.getColor() == cube2.getColor();
     }
 
 
@@ -177,10 +184,6 @@ public class PuyoUtil {
                 if (!puyos[j].getColorAsString().equals("-")){
 
                     checkOnePuyo(puyos[j]);
-                }else {
-                    markedForDelete.clear();
-                    System.out.println("======================Cleared for null");
-                }
                 if (markedForDelete.size() > 3) {
                     System.out.println("-------------------------Before Delete-------------------");
                     System.out.println("Marked For Delete: " + markedForDelete.size());
@@ -189,6 +192,10 @@ public class PuyoUtil {
                     System.out.println("-------------------------After Delete--------------------");
                     display();
 
+                }
+                }else {
+                    markedForDelete.clear();
+                    System.out.println("======================Cleared for null");
                 }
             }
 

@@ -55,11 +55,11 @@ class Puyo {
     }
 
     public int getX(){
-        return x - 1;
+        return x;
     }
 
     public int getY(){
-        return y - 1;
+        return y;
     }
 
     public boolean getLandingStatus(){
